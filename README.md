@@ -39,10 +39,10 @@ Rust to Wasm compilation can be carried out to accomodate `npm module` format as
 ```
 Rust-to-Wasm-packages/modules/pwnrusthellowasm> wasm-pack build --target bundler
 Rust-to-Wasm-packages/modules/pwnrusthellowasm> cd pkg
-Rust-to-Wasm-packages/modules/pwnrusthellowasm> npm publish
+Rust-to-Wasm-packages/modules/pwnrusthellowasm/pkg> npm publish
 ``` 
 
-## Tech stack overview
+## Rust to Wasm overview
 Rust[^6] is prepared to run in the web browser. There are several key takeways and tools making it possible.
 - WebAssembly Core Specification (2019) [^5] bringing `Wasm` runtime to browser standard.
 - `wasm-pack` tool for compiling code to WebAssembly.
