@@ -51,6 +51,13 @@ Rust[^6] is prepared to run in the web browser. There are several key takeways a
 Then `Rust lib` -> `ES6 code` / `ES6 module`, `Cargo.toml` -> `package.json`, + `js wrapper`.  
 Our final code, js wrapper and wasm is then found in `/pkg` directory. 
 
+## TODO List
+- [ ] Make dummy 3rd package `crud` for Node.js backend - adding, modifying and removing companies using our services.
+- [ ] Prepare Nuxt.js application.
+- [ ] Test `hello` for correct behavior.
+- [ ] Import `auth mock middleware` for frontend usage.
+- [ ] Use dummy `crud` behind Node.js endpoints/services/functions/whatever after "login" to perform stuff on frontend.
+
 [^1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
 [^2]: https://www.npmjs.com/settings/pwnstepo/packages
 [^3]: https://rustwasm.github.io/wasm-bindgen/examples/dom.html
