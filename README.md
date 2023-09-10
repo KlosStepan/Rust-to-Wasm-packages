@@ -21,18 +21,26 @@ Then we install `wasm-pack` for creating modularized Wasm binaries.
 ```
 cargo install wasm-pack
 ``` 
-Once we are ready we go to `/modules` folder and instantiate new one. We find it in `/modules/hello-wasm`.
+Once we are ready we go to `/modules` folder and instantiate new one. We find it in `/modules/pwnrusthellowasm`.
 ```
-cargo new --lib hello-wasm
+cargo new --lib pwnrusthellowasm
 ```
 We programm our desired functionality within the module.  
 
 Then we can compile project and with some additional [index.html](https://github.com/KlosStepan/Shared-worker-running-WebAssembly/blob/main/index.html) in `/` folder try out its functionality.
 ```
-Shared-worker-running-WebAssembly/modules/hello-wasm> wasm-pack build --target web
+Shared-worker-running-WebAssembly/modules/pwnrusthellowasm> wasm-pack build --target web
 Shared-worker-running-WebAssembly> python3 -m http.server
 Serving HTTP on :: port 8000 (http://[::]:8000/) ...
 ```
+
+## Preparing as package for npm
+Rust to Wasm compilation can be carried out to accomodate npm module format as well. To prepare, or expose your prepared package run following command in the appopriate module.
+```
+Shared-worker-running-WebAssembly/modules/pwnrusthellowasm> wasm-pack build --target bundler
+Shared-worker-running-WebAssembly/modules/pwnrusthellowasm> cd pkg
+Shared-worker-running-WebAssembly/modules/pwnrusthellowasm> npm publish
+``` 
 ## Fundamentals of Rust to Wasm compilation
 The process of compiling Rust code to Wasm is solved for us by the compiler(TODO). However, we need to understand steps and tools that are used or take place in this process.
 
@@ -45,6 +53,3 @@ Tools and steps:
 - biding,
 - loading,
 - etc.
-
-## Preparing NPM package
-TODO

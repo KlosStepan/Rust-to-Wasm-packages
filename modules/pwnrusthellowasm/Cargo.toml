@@ -1,8 +1,8 @@
 [package]
-name = "hello-wasm"
-version = "0.1.0"
+name = "pwnrusthellowasm"
+version = "0.2.0"
 authors = ["Stepan Klos <stepanklos@gmail.com>"]
-description = "A hello-wasm project with wasm-pack"
+description = "A pwnrusthellowasm project with wasm-pack"
 license = "MIT/Apache-2.0"
 repository = "https://github.com/KlosStepan/Shared-worker-running-WebAssembly"
 edition = "2018"
