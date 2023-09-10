@@ -1,19 +1,19 @@
-# Shared-worker-running-WebAssembly
-We will show how to implement simple web worker via Rust using WebAssembly. Such worker then can be used seamlessly in Vanilla JavaScript web application/React.js web application when bundled as `npm package`.
+# Rust-to-Wasm-packages
+We will describe how to implement simple web packages in Rust via WebAssembly. Such package then can be used seamlessly in `Vanilla JavaScript web application` or `React.js web application` compiled as `JavaScript modules` [^1] published at `npm` [^2].
 <p align="center">
-  <img src="misc/imgs/rustwasmjs.png" alt="k8s-aks-img-tr" style="width: 20%;" />
+  <img src="misc/imgs/rustwasmjs.png" alt="rust-wasm-js" style="width: 20%;" />
 </p> 
 
-## Wasm projects overview
-There are 2 possibilities of using Rust for building web application using WebAssembly:
-1. ~~`wholesome application` in Rust operating DOM via browser DOM API,~~
-2. `modules` Wasm binaries in JavaScript API wrapper.  
+## Wasm project overview
+There are 2 possibilities of using Rust for building web application targeting WebAssembly:
+1. ~~`wholesome application` in Rust operating DOM via browser DOM API [^3],~~
+2. `modules` that are Wasm binaries wrapped with JavaScript API [^4].  
 
 We are going to explore option `2` since our goal is to write modularized middleware in Rust.  
 
 ## Wasm module project setup
 
-First we prepare ourselves by installing Rust and Cargo.
+First we prepare ourselves by installing Rust and Cargo to Unix system.
 ```
 curl https://sh.rustup.rs -sSf | sh
 ```
@@ -25,31 +25,35 @@ Once we are ready we go to `/modules` folder and instantiate new one. We find it
 ```
 cargo new --lib pwnrusthellowasm
 ```
-We programm our desired functionality within the module.  
+We code our desired functionality in the Rust module.  
 
 Then we can compile project and with some additional [index.html](https://github.com/KlosStepan/Shared-worker-running-WebAssembly/blob/main/index.html) in `/` folder try out its functionality.
 ```
-Shared-worker-running-WebAssembly/modules/pwnrusthellowasm> wasm-pack build --target web
-Shared-worker-running-WebAssembly> python3 -m http.server
+Rust-to-Wasm-packages/modules/pwnrusthellowasm> wasm-pack build --target web
+Rust-to-Wasm-packages> python3 -m http.server
 Serving HTTP on :: port 8000 (http://[::]:8000/) ...
 ```
 
-## Preparing as package for npm
-Rust to Wasm compilation can be carried out to accomodate npm module format as well. To prepare, or expose your prepared package run following command in the appopriate module.
+## Distribute Rust module as `npm package`
+Rust to Wasm compilation can be carried out to accomodate `npm module` format as well. We have to set target to `--target bundler`. To prepare, or expose our prepared packed functionality run following commands in the appopriate module folder. Then `package.json` with appropriate entrypoint to `pwnrusthellowasm.js` is generated for us.
 ```
-Shared-worker-running-WebAssembly/modules/pwnrusthellowasm> wasm-pack build --target bundler
-Shared-worker-running-WebAssembly/modules/pwnrusthellowasm> cd pkg
-Shared-worker-running-WebAssembly/modules/pwnrusthellowasm> npm publish
+Rust-to-Wasm-packages/modules/pwnrusthellowasm> wasm-pack build --target bundler
+Rust-to-Wasm-packages/modules/pwnrusthellowasm> cd pkg
+Rust-to-Wasm-packages/modules/pwnrusthellowasm> npm publish
 ``` 
-## Fundamentals of Rust to Wasm compilation
-The process of compiling Rust code to Wasm is solved for us by the compiler(TODO). However, we need to understand steps and tools that are used or take place in this process.
 
-Compilation process:  
-1. blabla,  
-2. blabla2,
-3. finally js/ts wrapping.
+## Tech stack overview
+Rust[^6] is prepared to run in the web browser. There are several key takeways and tools making it possible.
+- WebAssembly Core Specification (2019) [^5] bringing `Wasm` runtime to browser standard.
+- `wasm-pack` tool for compiling code to WebAssembly.
+- `wasm-bindgen` to communicate between Rust and JavaScript.
 
-Tools and steps:
-- biding,
-- loading,
-- etc.
+Then `Rust lib` -> `ES6 code` / `ES6 module`, `Cargo.toml` -> `package.json`, + `js wrapper`.  
+Our final code, js wrapper and wasm is then found in `/pkg` directory. 
+
+[^1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
+[^2]: https://www.npmjs.com/settings/pwnstepo/packages
+[^3]: https://rustwasm.github.io/wasm-bindgen/examples/dom.html
+[^4]: https://developer.mozilla.org/en-US/docs/WebAssembly/Rust_to_Wasm
+[^5]: https://www.w3.org/TR/wasm-core-1/
+[^6]: https://www.rust-lang.org
