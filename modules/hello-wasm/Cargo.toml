@@ -1,0 +1,16 @@
+[package]
+name = "hello-wasm"
+version = "0.1.0"
+authors = ["Stepan Klos <stepanklos@gmail.com>"]
+description = "A hello-wasm project with wasm-pack"
+license = "MIT/Apache-2.0"
+repository = "https://github.com/KlosStepan/Shared-worker-running-WebAssembly"
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+wasm-bindgen = "0.2"
