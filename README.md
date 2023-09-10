@@ -52,6 +52,8 @@ Then `Rust lib` -> `ES6 code` / `ES6 module`, `Cargo.toml` -> `package.json`, + 
 Our final code, js wrapper and wasm is then found in `/pkg` directory. 
 
 ## TODO List
+- [ ] Read/study/implement https://rustwasm.github.io/wasm-bindgen/examples/wasm-in-web-worker.html
+- [ ] Read/study https://developer.mozilla.org/en-US/docs/WebAssembly/Loading_and_running
 - [ ] Make dummy 3rd package `crud` for Node.js backend - adding, modifying and removing companies using our services.
 - [ ] Prepare Nuxt.js application.
 - [ ] Test `hello` for correct behavior.
