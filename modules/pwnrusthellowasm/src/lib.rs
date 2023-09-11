@@ -9,3 +9,8 @@ extern {
 pub fn greet(name: &str) {
     alert(&format!("Hello, {}!", name));
 }
+
+#[wasm_bindgen]
+pub fn greetStatic() -> String {
+    "Hello from Rust!".to_string()
+}
