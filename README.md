@@ -49,18 +49,40 @@ Rust[^6] is prepared to run in the web browser. There are several key takeways a
 - `wasm-bindgen` to communicate between Rust and JavaScript.
 
 Then `Rust lib` -> `ES6 code` / `ES6 module`, `Cargo.toml` -> `package.json`, + `js wrapper`.  
-Our final code, js wrapper and wasm is then found in `/pkg` directory. 
+Our final code, js wrapper and wasm is then found in `/pkg` directory.  
+
+## Automated building
+We have `Makefile` in each module to easily build and publish it to npm.
+```bash
+├── modules
+|   ├── pwnauthmockmiddleware
+│   |    ├── src/ & ...
+│   |    └── Makefile
+|   ├── pwnrusthellowasm
+│   |    ├── src/ & ...
+│   |    └── Makefile
+|   └── pwn...
+│        ├── ...
+│        └── Makefile
+├── index.html - basic Vanilla JS demonstration
+└── README.md
+```
+We call `make` in order to build and public package to npm.  
+We call `make clean` in order to remove `pkg` and `target`.
+
 
 ## Demonstration
-We will demonstrate how to use all these packages in Next.js (React/Node) project [^7]. 
+We will demonstrate how to use all these packages in Next.js (React/Node) project [^7].  
+TODO - put live CI/CD pipeline.
 ## TODO List
 - [ ] Read/study/implement https://rustwasm.github.io/wasm-bindgen/examples/wasm-in-web-worker.html
-- [ ] Read/study https://developer.mozilla.org/en-US/docs/WebAssembly/Loading_and_running
+- [x] Read/study https://developer.mozilla.org/en-US/docs/WebAssembly/Loading_and_running
 - [ ] Make dummy 3rd package `crud` for Node.js backend - adding, modifying and removing companies using our services.
 - [x] Prepare Nuxt.js application.
-- [ ] Test `hello` for correct behavior.
+- [x] Test `hello` for correct behavior.
 - [ ] Import `auth mock middleware` for frontend usage.
 - [ ] Use dummy `crud` behind Node.js endpoints/services/functions/whatever after "login" to perform stuff on frontend.  
+- [ ] Put live Next-ft-Wasm somewhere to Kubernetes Cluster.
 
 
 ## ! Notes
