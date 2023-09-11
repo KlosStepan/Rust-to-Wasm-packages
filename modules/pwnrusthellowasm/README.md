@@ -60,13 +60,11 @@ export default function Home() {
 
   return (
     <>
-        <>
-            <span> Whatever content </span>
-            <button onClick={handleGreetClick}>Greet</button>
-            <button onClick={handleGreetStaticClick}>Greet Static</button>
-        </>
+        <span>Hello Wasm demonstration</span>
+        <button onClick={handleGreetClick}>Greet</button>
+        <button onClick={handleGreetStaticClick}>Greet Static</button>
         <div>
-            Whatever content
+            Whatever content...
         </div>
     </>
   )
