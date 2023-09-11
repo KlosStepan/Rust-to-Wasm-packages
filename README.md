@@ -42,7 +42,7 @@ Rust-to-Wasm-packages/modules/pwnrusthellowasm> cd pkg
 Rust-to-Wasm-packages/modules/pwnrusthellowasm/pkg> npm publish
 ``` 
 
-## Rust to Wasm overview
+## Rust to Wasm Overview
 Rust[^6] is prepared to run in the web browser. There are several key takeways and tools making it possible.
 - WebAssembly Core Specification (2019) [^5] bringing `Wasm` runtime to browser standard.
 - `wasm-pack` tool for compiling code to WebAssembly.
@@ -68,25 +68,32 @@ We have `Makefile` in each module to easily build and publish it to npm.
 └── README.md
 ```
 We call `make` in order to build and public package to npm.  
-We call `make clean` in order to remove `pkg` and `target`.
+We call `make clean` in order to remove `pkg` and `target`.  
 
+Example of cleaning after successful build and publication.
+```bash
+Rust-to-Wasm-packages/modules/pwnrusthellowasm> make clean
+# Remove the pkg and target directories if they exist
+rm -rf pkg target
+```
 
 ## Demonstration
-We will demonstrate how to use all these packages in Next.js (React/Node) project [^7].  
-TODO - put live CI/CD pipeline.
+We will demonstrate how to use all these packages[^7] in Next.js (React/Node) project [^8].  
 ## TODO List
 - [ ] Read/study/implement https://rustwasm.github.io/wasm-bindgen/examples/wasm-in-web-worker.html
 - [x] Read/study https://developer.mozilla.org/en-US/docs/WebAssembly/Loading_and_running
-- [ ] Make dummy 3rd package `crud` for Node.js backend - adding, modifying and removing companies using our services.
+- ~~[ ] Make dummy 3rd package `crud` for Node.js backend - adding, modifying and removing companies using our services.~~
 - [x] Prepare Nuxt.js application.
 - [x] Test `hello` for correct behavior.
+- [ ] Prepare `auth mock middleware` for frontend usage.
 - [ ] Import `auth mock middleware` for frontend usage.
-- [ ] Use dummy `crud` behind Node.js endpoints/services/functions/whatever after "login" to perform stuff on frontend.  
-- [ ] Put live Next-ft-Wasm somewhere to Kubernetes Cluster.
+- [ ] Run `auth mock middleware` as `shared worker``.
+- ~~[ ] Use dummy `crud` behind Node.js endpoints/services/functions/whatever after "login" to perform stuff on frontend.~~
+- [x] Put live Next-ft-Wasm somewhere to Kubernetes Cluster.
 
 
-## ! Notes
-- Allowing Wasm stuff in Nuxt.js config solution https://github.com/vercel/next.js/blob/canary/examples/with-webassembly/next.config.js
+## Notes
+- Allowing Wasm packages in Nuxt.js config solution like https://github.com/vercel/next.js/blob/canary/examples/with-webassembly/next.config.js
 
 [^1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
 [^2]: https://www.npmjs.com/settings/pwnstepo/packages
@@ -95,3 +102,4 @@ TODO - put live CI/CD pipeline.
 [^5]: https://www.w3.org/TR/wasm-core-1/
 [^6]: https://www.rust-lang.org
 [^7]: https://github.com/KlosStepan/Next-ft-Wasm
+[^8]: http://wasm.stkl.cz
