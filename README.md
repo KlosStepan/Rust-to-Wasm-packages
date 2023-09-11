@@ -51,14 +51,20 @@ Rust[^6] is prepared to run in the web browser. There are several key takeways a
 Then `Rust lib` -> `ES6 code` / `ES6 module`, `Cargo.toml` -> `package.json`, + `js wrapper`.  
 Our final code, js wrapper and wasm is then found in `/pkg` directory. 
 
+## Demonstration
+We will demonstrate how to use all these packages in Next.js (React/Node) project [^7]. 
 ## TODO List
 - [ ] Read/study/implement https://rustwasm.github.io/wasm-bindgen/examples/wasm-in-web-worker.html
 - [ ] Read/study https://developer.mozilla.org/en-US/docs/WebAssembly/Loading_and_running
 - [ ] Make dummy 3rd package `crud` for Node.js backend - adding, modifying and removing companies using our services.
-- [ ] Prepare Nuxt.js application.
+- [x] Prepare Nuxt.js application.
 - [ ] Test `hello` for correct behavior.
 - [ ] Import `auth mock middleware` for frontend usage.
-- [ ] Use dummy `crud` behind Node.js endpoints/services/functions/whatever after "login" to perform stuff on frontend.
+- [ ] Use dummy `crud` behind Node.js endpoints/services/functions/whatever after "login" to perform stuff on frontend.  
+
+
+## ! Notes
+- Allowing Wasm stuff in Nuxt.js config solution https://github.com/vercel/next.js/blob/canary/examples/with-webassembly/next.config.js
 
 [^1]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
 [^2]: https://www.npmjs.com/settings/pwnstepo/packages
@@ -66,3 +72,4 @@ Our final code, js wrapper and wasm is then found in `/pkg` directory.
 [^4]: https://developer.mozilla.org/en-US/docs/WebAssembly/Rust_to_Wasm
 [^5]: https://www.w3.org/TR/wasm-core-1/
 [^6]: https://www.rust-lang.org
+[^7]: https://github.com/KlosStepan/Next-ft-Wasm
