@@ -17,7 +17,7 @@ First we prepare ourselves by installing Rust and Cargo to Unix system.
 ```
 curl https://sh.rustup.rs -sSf | sh
 ```
-Then we install `wasm-pack` for creating modularized Wasm binaries.
+Then we install [`wasm-pack`](https://github.com/rustwasm/wasm-pack) built by [`The Rust and WebAssembly Working Group`](https://rustwasm.github.io) for creating modularized Wasm binaries.
 ```
 cargo install wasm-pack
 ``` 
@@ -55,7 +55,7 @@ Our final code, js wrapper and wasm is then found in `/pkg` directory.
 We have `Makefile` in each module to easily build and publish it to npm.
 ```bash
 ├── modules
-|   ├── pwnauthmockmiddleware
+|   ├── pwnqrpayment
 │   |    ├── src/ & ...
 │   |    └── Makefile
 |   ├── pwnrusthellowasm
