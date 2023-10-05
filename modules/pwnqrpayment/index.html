@@ -8,10 +8,9 @@
 
 <body>
   <script type="module">
-    import init, { generateQRPayment, generate_dummy_qr } from "./pkg/pwnqrpayment.js";
+    import init, { encode_qr_payment } from "./pkg/pwnqrpayment.js";
     init().then(() => {
-      console.log(generateQRPayment("SPD*1.0*ACC:CZ2806000000000168540115*AM:450.00*CC:CZK*MSG:PLATBA ZA ZBOZI*X-VS:1234567890"));
-      console.log(generate_dummy_qr());
+      console.log(encode_qr_payment("ahoj"));
     });
   </script>
 </body>

@@ -1,14 +1,16 @@
+extern crate wasm_bindgen;
 extern crate qrcode;
 extern crate image;
 extern crate base64;
-extern crate wasm_bindgen;
 
 use wasm_bindgen::prelude::*;
 use qrcode::QrCode;
-use qrcode::render::svg::Color; // Explicitly import Color
-use image::{DynamicImage, ColorType};
-use base64::write::EncoderWriter;
-use base64::STANDARD;
+use std::io::Read;
+use base64::{decode as b64decode, encode as b64encode};
+use image::{load_from_memory, DynamicImage, ImageOutputFormat, Luma};
+use rocket_contrib::json::Json;
+use rqrr::PreparedImage;
+
 
 //TODO React stuff
 
@@ -24,29 +26,54 @@ pub fn generateQRPayment(payment: &str) -> String {
 }
 #[wasm_bindgen]
 pub fn generate_dummy_qr() -> String {
-    let text = "Hello, QR code!";
+    // Encode some data into bits.
+    let code = QrCode::new(b"01234567").unwrap();
 
-    // Create a QR code
-    let code = QrCode::new(text).unwrap();
+    // Render the bits into an image.
+    let image = code.render::<Luma<u8>>().build();
 
-    // Specify width and height of the image
-    let width = 250u32;
-    let height = 250u32;
+    // Save the image.
+    //image.save("/tmp/qrcode.png").unwrap();
 
-    // Get the SVG string from the QR code
-    let svg = code.render::<Color>().finish();
+    // You can also render it into a string.
+    let string = code.render()
+        .dark_color('#')
+        .light_color(' ')
+        .build();
+    return format!("{}", string);
 
-    // Create an image from the SVG string
-    let image: DynamicImage = image::load_from_memory(svg.as_bytes()).unwrap();
+}
+#[wasm_bindgen]
+pub fn encode_qr_payment(
+    text: String
+    //width: Option<u32>,
+    //height: Option<u32>,
+//) -> Result<Json<String>, Json<String>> {
+) -> String {
+    //let width = width.unwrap_or(128);
+    let width = 128;
+    //let height = height.unwrap_or(128);
+    let height = 128;
 
-    // Resize the image to the specified width and height
-    let resized_image = image.resize(width, height, image::imageops::FilterType::Nearest);
+    if let Ok(qrcode) = QrCode::new(text.as_bytes()) {
+        let qrcode_image_buffer = qrcode
+            .render::<Luma<u8>>()
+            .max_dimensions(width, height)
+            .build();
 
-    // Encode the resized image as PNG and convert it to a base64 string
-    let mut base64_encoder = EncoderWriter::new(Vec::new(), STANDARD);
-    resized_image.write_to(&mut base64_encoder, image::ImageOutputFormat::Png).unwrap();
-    let base64_string = base64_encoder.finish().unwrap();
+        let qrcode_dynamic_image = DynamicImage::ImageLuma8(qrcode_image_buffer);
 
-    // Return the base64-encoded image as a string
-    format!("Base64-encoded image:\n{}", String::from_utf8(base64_string).unwrap())
+        let mut image_bytes: Vec<u8> = Vec::new();
+
+        if let Ok(_v) = qrcode_dynamic_image.write_to(&mut image_bytes, ImageOutputFormat::Png) {
+            //Ok(Json(b64encode(image_bytes)))
+            return format!("{}", b64encode(image_bytes));
+        } else {
+            //Err(Json(String::from("Error: Cannot get image bytes")))
+            return "error".to_string()
+        }
+    } else {
+        //Err(Json(String::from("Error: Cannot encode this text")))
+        return "error".to_string()
+    }
 }
