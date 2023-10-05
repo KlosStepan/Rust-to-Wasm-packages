@@ -1,8 +1,11 @@
+extern crate wasm_react;
 extern crate wasm_bindgen;
 extern crate qrcode;
 extern crate image;
 extern crate base64;
 
+use wasm_react::{h, export_components, Component, VNode};
+use wasm_bindgen::JsValue;
 use wasm_bindgen::prelude::*;
 use qrcode::QrCode;
 use std::io::Read;
@@ -77,3 +80,36 @@ pub fn encode_qr_payment(
         return "error".to_string()
     }
 }
+struct Counter {
+    initial_counter: i32,
+  }
+  
+  impl Component for Counter {
+    fn render(&self) -> VNode {
+      /* … */
+      VNode::new()
+    }
+  }
+  
+  struct App;
+  
+  impl Component for App {
+    fn render(&self) -> VNode {
+      h!(div).build((
+        Counter {
+          initial_counter: 0,
+        }
+        .build(),
+      ))
+    }
+  }
+  
+  impl TryFrom<JsValue> for App {
+    type Error = JsValue;
+  
+    fn try_from(_: JsValue) -> Result<Self, Self::Error> {
+      Ok(App)
+    }
+  }
+  
+  export_components! { App }
