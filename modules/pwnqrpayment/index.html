@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en-US">
+
+<head>
+  <meta charset="utf-8" />
+  <title>pwnqrpayment example</title>
+</head>
+
+<body>
+  <script type="module">
+    import init, { greetStatic, generateQRPayment } from "./pkg/pwnqrpayment.js";
+    init().then(() => {
+      console.log(generateQRPayment("WebAssembly"));
+    });
+  </script>
+</body>
+
+</html>
