@@ -5,9 +5,10 @@ We will describe how to implement simple web packages in Rust via WebAssembly. S
 </p> 
 
 ## Wasm project overview
-There are 2 possibilities of using Rust for building web application targeting WebAssembly:
+There are 3 possibilities of using Rust for building web application targeting WebAssembly:
 1. ~~`wholesome application` in Rust operating DOM via browser DOM API [^3],~~
-2. `modules` that are Wasm binaries wrapped with JavaScript API [^4].  
+2. `modules` that are Wasm binaries wrapped with JavaScript API [^4],
+3. `React Component` using [wasm_react](https://docs.rs/wasm-react/latest/wasm_react/) for using React stuff in Rust.  
 
 We are going to explore option `2` since our goal is to write modularized middleware in Rust.  
 
@@ -17,23 +18,24 @@ First we prepare ourselves by installing Rust and Cargo to Unix system.
 ```
 curl https://sh.rustup.rs -sSf | sh
 ```
-Then we install [`wasm-pack`](https://github.com/rustwasm/wasm-pack) built by [`The Rust and WebAssembly Working Group`](https://rustwasm.github.io) for creating modularized Wasm binaries.
+Then we install [`wasm-pack`](https://github.com/rustwasm/wasm-pack), amazing utility built by [`The Rust and WebAssembly Working Group`](https://rustwasm.github.io) for creating modularized Wasm binaries and other.
 ```
 cargo install wasm-pack
 ``` 
-Once we are ready we go to `/modules` folder and instantiate new one. We find it in `/modules/pwnrusthellowasm`.
+Once we are ready we go to `/modules` folder and instantiate new one.  
+We can use fiddle project in `/hellowasm-fiddle`.
 ```
-cargo new --lib pwnrusthellowasm
+cargo new --lib hellowasm-fiddle
 ```
 We code our desired functionality in the Rust module.  
 
-Then we can compile project and with some additional [index.html](https://github.com/KlosStepan/Shared-worker-running-WebAssembly/blob/main/index.html) in `/` folder try out its functionality.
+Then we can compile project and with some additional [index.html](https://github.com/KlosStepan/Shared-worker-running-WebAssembly/blob/main/index.html) in `/hellowasm-fiddle` folder try out its functionality.
 ```
-Rust-to-Wasm-packages/modules/pwnrusthellowasm> wasm-pack build --target web
-Rust-to-Wasm-packages> python3 -m http.server
+Rust-to-Wasm-packages/hellowasm-fiddle> wasm-pack build --target web
+Rust-to-Wasm-packages/hellowasm-fiddle> python3 -m http.server
 Serving HTTP on :: port 8000 (http://[::]:8000/) ...
 ```
-
+We added [Makefile](https://github.com/KlosStepan/Rust-to-Wasm-packages/blob/main/hellowasm-fiddle/Makefile) for better dev experience, such as `build`, `run`, `clean`, etc.
 ## Distribute Rust module as `npm package`
 Rust to Wasm compilation can be carried out to accomodate `npm module` format as well. We have to set target to `--target bundler`. To prepare, or expose our prepared packed functionality run following commands in the appopriate module folder. Then `package.json` with appropriate entrypoint to `pwnrusthellowasm.js` is generated for us.
 ```
@@ -81,6 +83,8 @@ rm -rf pkg target
 We will demonstrate how to use all these packages[^7] in Next.js (React/Node) project [^8].  
 ## TODO List
 - [ ] Read/study/implement https://rustwasm.github.io/wasm-bindgen/examples/wasm-in-web-worker.html
+- [ ] Recursive Makefile calls.
+- [ ] Makefiles for modules - unified one for build, publish run clean - standardize.
 - [x] Read/study https://developer.mozilla.org/en-US/docs/WebAssembly/Loading_and_running
 - ~~[ ] Make dummy 3rd package `crud` for Node.js backend - adding, modifying and removing companies using our services.~~
 - [x] Prepare Nuxt.js application.
